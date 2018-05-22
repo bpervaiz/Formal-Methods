@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+
+// sync on chanels
+int a,b,c,d;
+chan get_center,free_center,get_permission,free_permission;
+
+void rr1(){
+int a=1;
+int b=0;
+int c=0;
+int d=0;
+}
+void rr2(){
+int a=0;
+int b=1;
+int c=0;
+int d=0;
+}
+void rr3(){
+int a=0;
+int b=0;
+int c=1;
+int d=0;
+}
+void rr4(){
+int a=0;
+int b=0;
+int c=0;
+int d=1;
+}</declaration>
+	<template>
+		<name>Road1</name>
+		<declaration>clock x;</declaration>
+		<location id="id0" x="-136" y="76">
+			<name x="-178" y="93">yellowBuffer2</name>
+			<label kind="invariant" x="-195" y="68">x&lt;=60</label>
+		</location>
+		<location id="id1" x="102" y="76">
+			<name x="85" y="93">Green</name>
+			<label kind="invariant" x="127" y="68">x&lt;=4</label>
+		</location>
+		<location id="id2" x="102" y="-161">
+			<name x="92" y="-195">yellowBuffer1</name>
+			<label kind="invariant" x="119" y="-170">x&lt;=90</label>
+		</location>
+		<location id="id3" x="-136" y="-161">
+			<name x="-146" y="-195">Red</name>
+			<label kind="invariant" x="-187" y="-170">x&lt;=4</label>
+		</location>
+		<init ref="id3"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-221" y="-68">free_center!</label>
+			<label kind="assignment" x="-187" y="-42">rr1()</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="assignment" x="-42" y="102">x=0</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="assignment" x="110" y="-25">x=0</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-34" y="-204">d==1</label>
+			<label kind="synchronisation" x="-51" y="-187">get_center!</label>
+			<label kind="assignment" x="-25" y="-161">x=0</label>
+		</transition>
+	</template>
+	<template>
+		<name>permission</name>
+		<location id="id4" x="68" y="-110">
+			<name x="58" y="-144">pGranted</name>
+		</location>
+		<location id="id5" x="-153" y="-110">
+			<name x="-204" y="-144">pNotGranted</name>
+		</location>
+		<init ref="id5"/>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-102" y="-221">get_permission?</label>
+			<nail x="-42" y="-187"/>
+			<nail x="-42" y="-187"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-85" y="-34">free_permission?</label>
+			<nail x="-34" y="-34"/>
+		</transition>
+	</template>
+	<template>
+		<name>Road2</name>
+		<declaration>clock x;</declaration>
+		<location id="id6" x="-136" y="76">
+			<name x="-178" y="93">yellowBuffer2</name>
+			<label kind="invariant" x="-195" y="68">x&lt;=60</label>
+		</location>
+		<location id="id7" x="-136" y="-161">
+			<name x="-146" y="-195">Red</name>
+			<label kind="invariant" x="-187" y="-170">x&lt;=4</label>
+		</location>
+		<location id="id8" x="102" y="76">
+			<name x="85" y="93">Green</name>
+			<label kind="invariant" x="127" y="68">x&lt;=4</label>
+		</location>
+		<location id="id9" x="102" y="-161">
+			<name x="92" y="-195">yellowBuffer1</name>
+			<label kind="invariant" x="119" y="-170">x&lt;=90</label>
+		</location>
+		<init ref="id7"/>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-221" y="-68">free_center!</label>
+			<label kind="assignment" x="-187" y="-42">rr2()</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id6"/>
+			<label kind="assignment" x="-42" y="102">x=0</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id8"/>
+			<label kind="assignment" x="110" y="-25">x=0</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id9"/>
+			<label kind="guard" x="-34" y="-212">a==1</label>
+			<label kind="synchronisation" x="-51" y="-187">get_center!</label>
+			<label kind="assignment" x="-34" y="-153">x=0</label>
+		</transition>
+	</template>
+	<template>
+		<name>Road3</name>
+		<declaration>clock x;</declaration>
+		<location id="id10" x="-136" y="76">
+			<name x="-178" y="93">yellowBuffer2</name>
+			<label kind="invariant" x="-195" y="68">x&lt;=60</label>
+		</location>
+		<location id="id11" x="-136" y="-161">
+			<name x="-146" y="-195">Red</name>
+			<label kind="invariant" x="-187" y="-170">x&lt;=4</label>
+		</location>
+		<location id="id12" x="102" y="76">
+			<name x="85" y="93">Green</name>
+			<label kind="invariant" x="127" y="68">x&lt;=4</label>
+		</location>
+		<location id="id13" x="102" y="-161">
+			<name x="92" y="-195">yellowBuffer1</name>
+			<label kind="invariant" x="119" y="-170">x&lt;=90</label>
+		</location>
+		<init ref="id11"/>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="-221" y="-68">free_center!</label>
+			<label kind="assignment" x="-187" y="-42">rr3()</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id10"/>
+			<label kind="assignment" x="-42" y="102">x=0</label>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id12"/>
+			<label kind="assignment" x="110" y="-25">x=0</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id13"/>
+			<label kind="guard" x="-34" y="-204">b==1</label>
+			<label kind="synchronisation" x="-51" y="-187">get_center!</label>
+			<label kind="assignment" x="-34" y="-153">x=0</label>
+		</transition>
+	</template>
+	<template>
+		<name>Road4</name>
+		<declaration>clock x;</declaration>
+		<location id="id14" x="-136" y="76">
+			<name x="-178" y="93">yellowBuffer2</name>
+			<label kind="invariant" x="-195" y="68">x&lt;=60</label>
+		</location>
+		<location id="id15" x="-136" y="-161">
+			<name x="-146" y="-195">Red</name>
+			<label kind="invariant" x="-187" y="-170">x&lt;=4</label>
+		</location>
+		<location id="id16" x="102" y="76">
+			<name x="85" y="93">Green</name>
+			<label kind="invariant" x="127" y="68">x&lt;=4</label>
+		</location>
+		<location id="id17" x="102" y="-161">
+			<name x="92" y="-195">yellowBuffer1</name>
+			<label kind="invariant" x="119" y="-170">x&lt;=90</label>
+		</location>
+		<init ref="id15"/>
+		<transition>
+			<source ref="id14"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="-221" y="-68">free_center!</label>
+			<label kind="assignment" x="-187" y="-42">rr4()</label>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id14"/>
+			<label kind="assignment" x="-42" y="102">x=0</label>
+		</transition>
+		<transition>
+			<source ref="id17"/>
+			<target ref="id16"/>
+			<label kind="assignment" x="110" y="-25">x=0</label>
+		</transition>
+		<transition>
+			<source ref="id15"/>
+			<target ref="id17"/>
+			<label kind="guard" x="-25" y="-212">c==1</label>
+			<label kind="synchronisation" x="-51" y="-187">get_center!</label>
+			<label kind="assignment" x="-34" y="-153">x=0</label>
+		</transition>
+	</template>
+	<template>
+		<name>center</name>
+		<location id="id18" x="-705" y="-263">
+			<name x="-715" y="-297">taken</name>
+		</location>
+		<location id="id19" x="-918" y="-263">
+			<name x="-928" y="-297">free</name>
+		</location>
+		<init ref="id19"/>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id19"/>
+			<label kind="synchronisation" x="-850" y="-348">free_center?</label>
+			<nail x="-807" y="-323"/>
+		</transition>
+		<transition>
+			<source ref="id19"/>
+			<target ref="id18"/>
+			<label kind="synchronisation" x="-858" y="-195">get_center?</label>
+			<nail x="-807" y="-204"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+r1 = Road1();
+r2 = Road2();
+r3 = Road3();
+r4 = Road4();
+// List one or more processes to be composed into a system.
+system r1,r2,r3,r4, center,permission;
+    </system>
+	<queries>
+		<query>
+			<formula>A[] not (Jobber1.work_hard &amp;&amp; Jobber2.work_hard)
+			</formula>
+			<comment>MutEx: Never (Not in any of the future states) Jobber1 and Jobber 2 both will work_hard.
+			</comment>
+		</query>
+		<query>
+			<formula>A[] Hammer.taken == (Jobber1.work_avg_hammer || Jobber2.work_avg_hammer || Jobber1.work_hard || Jobber2.work_hard)
+			</formula>
+			<comment>Whenever Hammer is taken, either Jobber1 is work_avg_hammer or Jobber2 is work_avg_hammer or Jobber1 is work_hard or Jobber2 is work_hard.
+			</comment>
+		</query>
+		<query>
+			<formula>A[] Mallet.taken == (Jobber1.work_avg_mallet || Jobber2.work_avg_mallet)
+			</formula>
+			<comment>Whenever mallet is taken, either Jobber1 is work_avg_mallet or Jobber2 is work_avg_mallet.
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Jobber1.work_hard &amp;&amp; Jobber2.work_hard
+			</formula>
+			<comment>Does there exists, in future, that Jobber1 works hard and Jobber2 works hard too?
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Jobber1.easy &amp;&amp; Jobber2.hard
+			</formula>
+			<comment>Does there exists, in future, that Jobber1 works easy and Jobber2 works hard ?
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; deadlock
+			</formula>
+			<comment>Does there exist any deadlock?
+			</comment>
+		</query>
+		<query>
+			<formula>A[] not deadlock
+			</formula>
+			<comment>We are checking the possible deadlock here.
+			</comment>
+		</query>
+	</queries>
+</nta>
